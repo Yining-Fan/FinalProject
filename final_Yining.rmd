@@ -1,0 +1,209 @@
+---
+title: "Final Project"
+author: "Yining Fan"
+date: "12/13/2020"
+output: html_notebook
+---
+
+```{r}
+# clean up workspace environment
+rm(list = ls())
+# packages
+library(mosaic)
+library(tidyverse)
+library(DataComputing)
+library(tidyr)
+library(lubridate)
+library(ggplot2)
+```
+
+```{r}
+#Data
+mydata = read.csv("daily_KP_UV_ALL.csv", header = T) #Primary data
+mydata2=read.csv("daily_KP_MAXUV_ALL.csv", header = T)   #Other data source
+```
+
+## Data Analysis
+
+
+### Guiding Question
+
+How did the UV level changes through these years in Hong Kong?
+
+
+### Details about data sources
+
+
+1. Where did you find them?
+
+
+Data founded in DATA.GOV.HK.  (URL:https://data.gov.hk/en-data/dataset/hk-hko-rss-daily-maximum-mean-uv-index)
+
+
+2. Who collected/maintains them?
+
+
+HONG KONG OBSERVATORY. (No specific author specified)
+
+
+3. When & Why were they originally collected?
+
+
+Collected since 1999, update once a mouth. Intend to record the official UV levels for people in Hong Kong to check.
+
+4. What does a case represent in each data source, and how many total cases are available?
+```{r}
+mydata %>%
+  summarise(count = n())
+mydata2 %>%
+  summarise(count = n())
+```
+
+Primary data: The mean UV value in a day with complete/uncomplete data.
+
+
+Other data: The max UV value in a day with complete/uncomplete data.
+
+
+There are 7730 cases in both data sets.
+
+
+5. What are some of the variables that you plan to use
+```{r}
+names(mydata)
+names(mydata2)
+```
+
+
+I plan to use these 5 variables: year, mouth, day, value(quantitative) and data completeness(Catergorical).
+
+
+```{r}
+summary(mydata)
+summary(mydata2)
+str(mydata)
+str(mydata2)
+head(mydata)
+head(mydata2)
+```
+
+
+## Data Wrangling
+```{r}
+# filter out the uncomplete data.
+thedata <-
+mydata %>%
+  filter(Completeness == "C") %>%
+  select(Year,Month,Value,Completeness)
+thedata
+
+thedata2 <-
+mydata2 %>%
+  filter(Completeness == "C") %>%
+  select(Year,Month,Value,Completeness)
+thedata2
+```
+
+```{r}
+# How many datas in each year
+thedata %>%
+  group_by(Year) %>%
+  summarise(count=n())
+
+thedata2 %>% 
+  group_by(Year) %>%
+  summarise(count = n())
+
+```
+
+```{r}
+Join <-
+  thedata %>%
+  inner_join(thedata2)
+Join
+```
+
+
+```{r}
+#Using regular expression to compare the two data tables (difference between MAX and mean of UV value) in 1999
+thedata %>% 
+  filter(grepl("1999", Year, ignore.case = TRUE)) 
+thedata2 %>%
+  filter(grepl("1999", Year, ignore.case = TRUE))
+```
+
+```{r}
+library(party)
+CompleteData <- 
+  mydata %>%
+  ctree(Completeness == "C" ~ Month + Year, data = .)	
+  CompleteData
+```
+
+## Data Visualization
+```{r}
+June <- 
+  thedata %>%
+  filter(Month == "6", Year == c(2010,2011,2012,2013,2014,2015))
+ggplot(data=June,aes(x=Year,y=Value))+geom_point()+ggtitle("Mean UV from 2010-2015")+aes(colour="Month")
+```
+
+```{r}
+ggplot(data=June,aes(x=Year,y=Value))+geom_line()+ggtitle("Mean UV from 2010-2015")+aes(colour="Month")
+```
+
+## About the project
+
+
+### Guiding Question
+
+How did the UV level changes through these years in Hong Kong?
+
+
+### Why this topic is important?
+Due to global warming, the temperature continues to rise every year. Like every summer we can see that this year is the hottest summer ever. For example, the highest temperature in 2000 was like 95 farenheight,but in this year the higest is like 106 farenheight.  It's not just temperature, the UV level also increases, which is the ultra violet.It could become to a problem in the near future.
+
+
+### Challenge Encountered
+1. Data wrangling: There are several uncomplete datas with no value. With this problem, the y-axis will not sorted in a correct way.
+
+```{r}
+uncomplete <-
+  mydata %>%
+  filter(Completeness != "C")
+uncomplete
+```
+
+
+To fix this problem, filter out the uncomplete data.
+```{r}
+thedata <-
+mydata %>%
+  filter(Completeness == "C")
+thedata
+
+thedata2 <-
+mydata2 %>%
+  filter(Completeness == "C")
+thedata2
+```
+
+
+2. How to choose the plot I use?
+
+
+Because there are around 8000 observations in both two data tables. So I decided to only observe the UV level in June from 2010 to 2015. 
+
+
+3. The challenge I did not overcome is that can not get the max and mean of the data. As shown below:
+```{r}
+dataStats<-
+thedata %>%
+  group_by(Year) %>%
+  summarise(aver = mean(Value, na.rm=TRUE))
+```
+
+
+### Conclusion
+From the graph in line 144, the UV level is keep increasing as the year goes.
+
