@@ -1,0 +1,41 @@
+Final Project: Guidance Document 
+Yining Fan
+Due December 11, 2020
+
+Data Access 
+(A).Rmd Line numbers where at least two difffferent data sources are imported: 20-24 
+(B) .Rmd Line numbers for inspecting data intake:  72-75; 81-88
+Data Wrangling (5 out of 8 required) 
+(A) .Rmd Line number(s) for general data wrangling: 92-105
+(B) .Rmd Line number(s) for a join operation: 119-124
+(C) .Rmd Line number(s) for a spread or gather operation (or equivalent): 
+(D) .Rmd Line number(s) for use of regular expressions: 127-133
+(E) .Rmd Line number(s) for use of reduction and/or transformation functions: 107-117
+(F) .Rmd Line number(s) for use of user-defifined functions: 
+(G) .Rmd Line number(s) for use of loops and/or control flflow: 
+(H) .Rmd Line number(s) for use of machine learning (not “wrangling” but scored here): 135-141
+Data Visualization (3 of 5 required) 
+(A) .Rmd Line number(s) for use of mulitple difffferent geoms: 143-153
+(B) .Rmd Line number(s) for use of multiple aesthetics: 143-153
+(C) .Rmd Line number(s) for use of layered graphics: 
+(D) .Rmd Line number(s) for use of leaflflet maps: 
+(E) .Rmd Line number(s) for use of decision tree or dendogram results: 
+Other requirements (Nothing for you to report in this Guidance Document) 
+(A) All data visualizations must be relevant to the stated research question, and the report must include at 
+least one effffective display of many–at least 3–variables 
+(B) Code quality: Code formatting is consistent with Style Guide Appendix of DataComputing eBook. 
+Specififically, all code chunks demonstrate profificiency with (1) meaningful object names (2) proper use 
+of white space especially with respect to infifix operators, chain operators, commas, brackets/parens, etc 
+(3) use of <- assignment operator throughout (4) use of meaningful comments. 
+(C) Narrative quality: The narrative text (1) clearly states one research question that motivates the overall 
+analysis, (2) explains reasoning for each signifificant step in the analysis and it’s relationship to the 
+research question, (3) explains signifificant fifindings and conclusions as they relate to the research question, 
+and (4) is completely free of errors in spelling and grammar 
+(D) Overall Quality: Submitted project shows signifificant effffort to produce a high-quality and thoughtful 
+analysis that showcases STAT 184 skills. (2) The project must be self-contained, such that the analysis 
+can be entirely rerun without errors. (3) Analysis is coherent, well-organized, and free of extraneous 
+content such as data dumps, unrelated graphs, and other content that is not overtly connected to the 
+research question. 
+(E) EXTRA CREDIT (1) Project is submitted as a self-contained GitHub Repo (2) project submission is a 
+functioning github.io webpage generated for the project Repo. Note: a link to the GitHub Repo itself 
+will be awarded partial credit, but does not itself qualify as a “webpage” of the analysis. 
